@@ -5,6 +5,13 @@ namespace Data
 {
     public class ListRepository : IListRepository
     {
+        private string _stringConnection;
+
+        public ListRepository(string stringConnection)
+        {
+            _stringConnection = stringConnection;
+        }
+
         public void AddList(ListEntity entity)
         {
             throw new NotImplementedException();
