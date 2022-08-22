@@ -15,17 +15,33 @@ namespace Data
             _stringConnection = stringConnection;
         }
 
-        public void AddTask(TaskEntity task)
+        public async void AddTask(TaskEntity task)
         {
-            throw new NotImplementedException();
+            string sql = $@"INSERT INTO tasks (name, notes, created_date, end_date, list_id) 
+                            VALUES (@{nameof(task.Name)}, 
+                                    @{nameof(task.Notes)},
+                                    @{nameof(task.CreatedDate)},
+                                    @{nameof(task.EndDate)},
+                                    @{nameof(task.ListEntityId)})";
+
+            using (IDbConnection db = new SqliteConnection(_stringConnection))
+            {
+                await db.ExecuteAsync(sql, task);
+            }
         }
 
-        public void DeleteTask(TaskEntity task)
+        public async void DeleteTaskById(int id)
         {
-            throw new NotImplementedException();
+            string sql = $@"DELETE FROM tasks
+                            WHERE id = {id}";
+
+            using (IDbConnection db = new SqliteConnection(_stringConnection))
+            {
+                await db.ExecuteAsync(sql);
+            }
         }
 
-        public List<TaskEntity> GetAllTasks()
+        public async Task<List<TaskEntity>> GetAllTasks()
         {
             var list = new List<TaskEntity>();
             string sql = @"SELECT tasks.id AS Id,
@@ -41,15 +57,26 @@ namespace Data
             
             using (IDbConnection db = new SqliteConnection(_stringConnection))
             {
-                list = db.Query<TaskEntity, ListEntity, TaskEntity>(sql, (task, list) => { task.List = list; return task; }, splitOn: "Id").ToList();
+                list = (List<TaskEntity>)await db.QueryAsync<TaskEntity, ListEntity, TaskEntity>(sql, (task, list) => { task.List = list; return task; }, splitOn: "Id");
             }
 
             return list;
         }
 
-        public void UpdateTask(TaskEntity task)
+        public async void UpdateTask(TaskEntity task)
         {
-            throw new NotImplementedException();
+            string sql = $@"UPDATE tasks 
+                            SET name = @{nameof(task.Name)},
+                                notes = @{nameof(task.Notes)},
+                                created_date = @{nameof(task.CreatedDate)},
+                                end_date = @{nameof(task.EndDate)},
+                                list_id = @{nameof(task.ListEntityId)}
+                            WHERE id = @{nameof(task.Id)};";
+
+            using (IDbConnection db = new SqliteConnection(_stringConnection))
+            {
+                await db.ExecuteAsync(sql, task);
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Data
             throw new NotImplementedException();
         }
 
-        public void DeleteList(int id)
+        public void DeleteListById(int id)
         {
             throw new NotImplementedException();
         }
