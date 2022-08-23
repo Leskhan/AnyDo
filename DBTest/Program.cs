@@ -25,11 +25,12 @@ namespace DBTest
                 Notes = "Test Notes",
                 CreatedDate = "22.08.2022",
                 EndDate = "24.08.2022",
-                ListEntityId = 1
+                ListEntityId = 1,
+                IsCompleted = "false"
             };
 
             taskRepository.AddTask(newTask);
-            newTask.Id = 3;
+            newTask.Id = 2;
             newTask.Name = "Leskhan";
             taskRepository.UpdateTask(newTask);
 

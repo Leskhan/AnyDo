@@ -7,6 +7,7 @@ namespace Entities
         public string? EndDate { get; set; }
         public string? Notes { get; set; }
         public string CreatedDate { get; set; }
+        public string IsCompleted { get; set; }
 
         public int? ListEntityId { get; set; }
         public ListEntity? List { get; set; }

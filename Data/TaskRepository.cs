@@ -17,12 +17,13 @@ namespace Data
 
         public async void AddTask(TaskEntity task)
         {
-            string sql = $@"INSERT INTO tasks (name, notes, created_date, end_date, list_id) 
+            string sql = $@"INSERT INTO tasks (name, notes, created_date, end_date, list_id, is_completed) 
                             VALUES (@{nameof(task.Name)}, 
                                     @{nameof(task.Notes)},
                                     @{nameof(task.CreatedDate)},
                                     @{nameof(task.EndDate)},
-                                    @{nameof(task.ListEntityId)})";
+                                    @{nameof(task.ListEntityId)},
+                                    @{nameof(task.IsCompleted)})";
 
             using (IDbConnection db = new SqliteConnection(_stringConnection))
             {
@@ -50,6 +51,7 @@ namespace Data
 	                                tasks.created_date AS CreatedDate,
 	                                tasks.end_date AS EndDate,
                                     lists.id AS ListEntityId,
+                                    tasks.is_completed AS IsCompleted,
 	                                lists.id AS Id,
                                     lists.name AS Name
                                 FROM tasks
@@ -70,7 +72,8 @@ namespace Data
                                 notes = @{nameof(task.Notes)},
                                 created_date = @{nameof(task.CreatedDate)},
                                 end_date = @{nameof(task.EndDate)},
-                                list_id = @{nameof(task.ListEntityId)}
+                                list_id = @{nameof(task.ListEntityId)},
+                                is_completed = @{nameof(task.IsCompleted)}
                             WHERE id = @{nameof(task.Id)};";
 
             using (IDbConnection db = new SqliteConnection(_stringConnection))
