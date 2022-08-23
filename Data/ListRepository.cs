@@ -1,5 +1,8 @@
-﻿using Data.Repositories;
+﻿using Dapper;
+using Data.Repositories;
 using Entities;
+using Microsoft.Data.Sqlite;
+using System.Data;
 
 namespace Data
 {
@@ -12,24 +15,54 @@ namespace Data
             _stringConnection = stringConnection;
         }
 
-        public void AddList(ListEntity entity)
+        public async void AddList(ListEntity list)
         {
-            throw new NotImplementedException();
+            string sql = $@"INSERT INTO lists (name)
+                            VALUES (@{nameof(list.Name)})";
+
+            using (IDbConnection db = new SqliteConnection(_stringConnection))
+            {
+                await db.ExecuteAsync(sql, list);
+            }
         }
 
-        public void DeleteListById(int id)
+        public async void DeleteListById(int id)
         {
-            throw new NotImplementedException();
+            string sql = @$"DELETE FROM lists
+                            WHERE id = {id}";
+
+            using (IDbConnection db = new SqliteConnection(_stringConnection))
+            {
+                await db.ExecuteAsync(sql);
+            }
         }
 
-        public ListEntity GetList(int id)
+        public ListEntity GetListById(int id)
         {
-            throw new NotImplementedException();
+            ListEntity list;
+            string sql = $@"SELECT id AS Id,
+                                   name AS Name
+                            FROM lists
+                            WHERE id = {id}";
+
+            using (IDbConnection db = new SqliteConnection(_stringConnection))
+            {
+                list = db.Query<ListEntity>(sql).First();
+            }
+
+            return list;
         }
 
-        public void UpdateList(ListEntity entity)
+        public async void UpdateList(ListEntity list)
         {
-            throw new NotImplementedException();
+            string sql = $@"UPDATE lists
+                            SET name = @{nameof(list.Name)}
+                            WHERE id = @{nameof(list.Id)}";
+
+            using (IDbConnection db = new SqliteConnection(_stringConnection))
+            {
+                await db.ExecuteAsync(sql, list);
+            }
         }
     }
 }

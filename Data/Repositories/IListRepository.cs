@@ -4,9 +4,9 @@ namespace Data.Repositories
 {
     public interface IListRepository
     {
-        ListEntity GetList(int id);
-        void AddList(ListEntity entity);
-        void UpdateList(ListEntity entity);
+        ListEntity GetListById(int id);
+        void AddList(ListEntity list);
+        void UpdateList(ListEntity list);
         void DeleteListById(int id);
     }
 }

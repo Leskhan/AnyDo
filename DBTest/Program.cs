@@ -29,14 +29,25 @@ namespace DBTest
                 IsCompleted = "false"
             };
 
-            taskRepository.AddTask(newTask);
             newTask.Id = 2;
             newTask.Name = "Leskhan";
-            taskRepository.UpdateTask(newTask);
+            //taskRepository.AddTask(newTask);
+            //taskRepository.UpdateTask(newTask);
+            //taskRepository.DeleteTaskById(3);
+            //var tasks = taskRepository.GetAllTasks().Result;
 
-            taskRepository.DeleteTaskById(3);
 
-            var tasks = taskRepository.GetAllTasks().Result;
+            ListRepository listRepository = new ListRepository("Data Source=" + locationDb);
+
+            ListEntity newList = new ListEntity()
+            {
+                Id = 3,
+                Name = "Home"
+            };
+
+            //listRepository.DeleteListById(newList.Id);
+            //listRepository.UpdateList(newList);
+            //listRepository.AddList(newList);
         }
     }
 }
