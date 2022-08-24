@@ -3,7 +3,6 @@ using Domain;
 using Mappers;
 using Services.Interfaces;
 
-
 namespace Services.Implementations
 {
     public class ListService : IListService
