@@ -1,6 +1,6 @@
-﻿namespace Domain
+﻿namespace AnyDo.Models
 {
-    public class TaskDomain
+    public class TaskModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -10,6 +10,6 @@
         public bool IsCompleted { get; set; }
 
         public int ListDomainId { get; set; }
-        public ListDomain List { get; set; }
+        public ListModel List { get; set; }
     }
 }
