@@ -1,28 +1,40 @@
-﻿using Domain;
+﻿using Data.Repositories;
+using Domain;
+using Mappers;
 using Services.Interfaces;
+
 
 namespace Services.Implementations
 {
     public class ListService : IListService
     {
+        private IListRepository _listRepository;
+
+        public ListService(IListRepository listRepository)
+        {
+            _listRepository = listRepository;
+        }
+
         public void AddList(ListDomain list)
         {
-            throw new NotImplementedException();
+            _listRepository.AddList(list.ToEntity());
         }
 
         public void DeleteListById(int listId)
         {
-            throw new NotImplementedException();
+            _listRepository.DeleteListById(listId);
         }
 
         public ListDomain GetListById(int listId)
         {
-            throw new NotImplementedException();
+            var listDomain = _listRepository.GetListById(listId).ToDomain();
+            listDomain.Tasks = _listRepository.GetListTasks(listId).ToDomainList();
+            return listDomain;
         }
 
         public void UpdateList(ListDomain list)
         {
-            throw new NotImplementedException();
+            _listRepository.UpdateList(list.ToEntity());
         }
     }
 }

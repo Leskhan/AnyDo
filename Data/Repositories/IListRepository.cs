@@ -8,5 +8,6 @@ namespace Data.Repositories
         void AddList(ListEntity list);
         void UpdateList(ListEntity list);
         void DeleteListById(int id);
+        List<TaskEntity> GetListTasks(int listId);
     }
 }

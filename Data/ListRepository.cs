@@ -53,6 +53,21 @@ namespace Data
             return list;
         }
 
+        public List<TaskEntity> GetListTasks(int listId)
+        {
+            List<TaskEntity> list;
+            string sql = $@"SELECT *
+                            FROM tasks
+                            WHERE list_id = {listId}";
+
+            using (IDbConnection db = new SqliteConnection(_stringConnection))
+            {
+                list = db.Query<TaskEntity>(sql).ToList();
+            }
+
+            return list;
+        }
+
         public async void UpdateList(ListEntity list)
         {
             string sql = $@"UPDATE lists
