@@ -21,6 +21,24 @@ namespace Mappers
             };
         }
 
-        
+        public static TaskEntity ToEntity(this TaskDomain task)
+        {
+            return new TaskEntity()
+            {
+                Id = task.Id,
+                Name = task.Name,
+                EndDate = task.EndDate.ToString(),
+                CreatedDate = task.CreatedDate.ToString(),
+                Notes = task.Notes,
+                IsCompleted = task.IsCompleted.ToString(),
+                ListEntityId = task.ListDomainId,
+                List = task.List.ToEntity()
+            };
+        }
+
+        public static List<TaskDomain> ToDomainList(this List<TaskEntity> tasks)
+        {
+            return tasks.Select(t => t.ToDomain()).ToList();
+        }
     }
 }

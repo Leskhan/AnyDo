@@ -24,7 +24,7 @@ namespace Mappers
             };
         }
 
-        public static List<TaskDomain> ToDomainList(this List<TaskEntity> tasks)
+        public static List<ListDomain> ToDomainList(this List<ListEntity> tasks)
         {
             return tasks.Select(t => t.ToDomain()).ToList();
         }

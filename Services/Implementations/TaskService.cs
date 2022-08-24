@@ -1,28 +1,37 @@
-﻿using Domain;
+﻿using Data.Repositories;
+using Domain;
+using Mappers;
 using Services.Interfaces;
 
 namespace Services.Implementations
 {
     public class TaskService : ITaskService
     {
+        private ITaskRepository _taskRepository;
+
+        public TaskService(ITaskRepository taskRepository)
+        {
+            _taskRepository = taskRepository;
+        }
+
         public void AddTask(TaskDomain task)
         {
-            throw new NotImplementedException();
+            _taskRepository.AddTask(task.ToEntity());
         }
 
         public void DeleteTaskById(int taskId)
         {
-            throw new NotImplementedException();
+            _taskRepository.DeleteTaskById(taskId);
         }
 
-        public Task<List<TaskDomain>> GetAllTasks()
+        public List<TaskDomain> GetAllTasks()
         {
-            throw new NotImplementedException();
+            return _taskRepository.GetAllTasks().ToDomainList();
         }
 
         public void UpdateTask(TaskDomain task)
         {
-            throw new NotImplementedException();
+            _taskRepository.UpdateTask(task.ToEntity());
         }
     }
 }

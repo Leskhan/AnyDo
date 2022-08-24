@@ -42,7 +42,7 @@ namespace Data
             }
         }
 
-        public async Task<List<TaskEntity>> GetAllTasks()
+        public List<TaskEntity> GetAllTasks()
         {
             var list = new List<TaskEntity>();
             string sql = @"SELECT tasks.id AS Id,
@@ -59,7 +59,7 @@ namespace Data
             
             using (IDbConnection db = new SqliteConnection(_stringConnection))
             {
-                list = (List<TaskEntity>)await db.QueryAsync<TaskEntity, ListEntity, TaskEntity>(sql, (task, list) => { task.List = list; return task; }, splitOn: "Id");
+                list = (List<TaskEntity>)db.Query<TaskEntity, ListEntity, TaskEntity>(sql, (task, list) => { task.List = list; return task; }, splitOn: "Id");
             }
 
             return list;
