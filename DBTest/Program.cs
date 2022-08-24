@@ -7,11 +7,11 @@ namespace DBTest
     {
         public static void Main(string[] args)
         {
+            string fileCopy = @"C:\Users\user\source\repos\AnyDo\Data\AnyDoDB-copy.db";
+            
             var pathDirectory = Environment.CurrentDirectory;
             var locationProject = pathDirectory.Substring(0, pathDirectory.IndexOf("AnyDo"));
             string file = @"AnyDo\Data\AnyDoDB.db";
-            string fileCopy = @"C:\Users\user\source\repos\AnyDo\Data\AnyDoDB-copy.db";
-
             string locationDb = locationProject + file;
 
             //File.Copy(@"C:\Users\user\source\repos\AnyDo\Data\AnyDoDB.db", @"C:\Users\user\source\repos\AnyDo\Data\AnyDoDB-copy.db");

@@ -8,5 +8,6 @@ namespace Services.Interfaces
         void AddList(ListDomain list);
         void UpdateList(ListDomain list);
         void DeleteListById(int listId);
+        List<ListDomain> GetLists();
     }
 }

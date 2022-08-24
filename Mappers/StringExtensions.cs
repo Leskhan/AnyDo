@@ -4,7 +4,7 @@
     {
         public static DateTime? ToDate(this string date)
         {
-            if (date is null)
+            if (date is null || date == "")
                 return null;
 
             var dateArray = date.Split('.');

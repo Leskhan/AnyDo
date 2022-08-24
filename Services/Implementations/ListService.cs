@@ -31,6 +31,11 @@ namespace Services.Implementations
             return listDomain;
         }
 
+        public List<ListDomain> GetLists()
+        {
+            return _listRepository.GetLists().ToDomainList();
+        }
+
         public void UpdateList(ListDomain list)
         {
             _listRepository.UpdateList(list.ToEntity());

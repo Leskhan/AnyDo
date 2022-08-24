@@ -7,6 +7,9 @@ namespace AnyDo.Mappers
     {
         public static ListModel ToModel(this ListDomain list)
         {
+            if (list is null)
+                return null;
+
             return new ListModel()
             {
                 Id = list.Id,
@@ -15,9 +18,12 @@ namespace AnyDo.Mappers
             };
         }
 
-        public static List<TaskModel> ToModelList(this List<TaskDomain> tasks)
+        public static List<ListModel> ToModelList(this List<ListDomain> lists)
         {
-            return tasks.Select(t => t.ToModel()).ToList();
+            if (lists is null)
+                return null;
+
+            return lists.Select(t => t.ToModel()).ToList();
         }
     }
 }

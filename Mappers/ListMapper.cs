@@ -8,6 +8,9 @@ namespace Mappers
     {
         public static ListEntity ToEntity(this ListDomain list)
         {
+            if (list is null)
+                return null;
+
             return new ListEntity() 
             {
                 Id = list.Id,
@@ -17,6 +20,9 @@ namespace Mappers
 
         public static ListDomain ToDomain(this ListEntity list)
         {
+            if (list is null)
+                return null;
+
             return new ListDomain() 
             {
                 Id = list.Id,
@@ -24,9 +30,12 @@ namespace Mappers
             };
         }
 
-        public static List<ListDomain> ToDomainList(this List<ListEntity> tasks)
+        public static List<ListDomain> ToDomainList(this List<ListEntity> lists)
         {
-            return tasks.Select(t => t.ToDomain()).ToList();
+            if (lists is null)
+                return null;
+
+            return lists.Select(t => t.ToDomain()).ToList();
         }
 
     }
