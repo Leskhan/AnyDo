@@ -4,7 +4,7 @@
     {
         public static bool ToBool(this string str)
         {
-            return str == "true";
+            return str == "True";
         }
     }
 }

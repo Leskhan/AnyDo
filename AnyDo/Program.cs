@@ -21,7 +21,8 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddTransient<IListService, ListService>();
 builder.Services.AddTransient<IListRepository, ListRepository>(provider => new ListRepository("Data Source=" + locationDb));
-
+builder.Services.AddTransient<ITaskService, TaskService>();
+builder.Services.AddTransient<ITaskRepository, TaskRepository>(provider => new TaskRepository("Data Source=" + locationDb));
 
 var app = builder.Build();
 

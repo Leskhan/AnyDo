@@ -23,6 +23,24 @@ namespace AnyDo.Mappers
             };
         }
 
+        public static TaskDomain ToDomain(this TaskModel task)
+        {
+            if (task is null)
+                return null;
+
+            return new TaskDomain()
+            {
+                Id = task.Id,
+                Name = task.Name,
+                EndDate = task.EndDate,
+                CreatedDate = task.CreatedDate,
+                Notes = task.Notes,
+                IsCompleted = task.IsCompleted,
+                ListDomainId = task.ListModelId,
+                List = null
+            };
+        }
+
         public static List<TaskModel> ToModelList(this List<TaskDomain> tasks)
         {
             if (tasks is null)

@@ -7,7 +7,7 @@
             if (date is null || date == "")
                 return null;
 
-            var dateArray = date.Split('.');
+            var dateArray = date.Split('.', ' ');
             
             int year = Convert.ToInt32(dateArray[2]);
             int month = Convert.ToInt32(dateArray[1]);
