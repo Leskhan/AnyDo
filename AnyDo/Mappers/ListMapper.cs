@@ -18,6 +18,15 @@ namespace AnyDo.Mappers
             };
         }
 
+        public static ListDomain ToDomain(this ListModel list)
+        {
+            return new ListDomain() 
+            {
+                Id = list.Id,
+                Name = list.Name
+            };
+        }
+
         public static List<ListModel> ToModelList(this List<ListDomain> lists)
         {
             if (lists is null)
