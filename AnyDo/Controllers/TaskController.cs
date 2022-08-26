@@ -1,6 +1,7 @@
 ﻿using AnyDo.Mappers;
 using AnyDo.Models;
 using AnyDo.ViewModels;
+using Mappers;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
@@ -89,7 +90,7 @@ namespace AnyDo.Controllers
         /// <param name="taskViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddTask(TaskViewModel taskViewModel)
+        public IActionResult AddTask([FromBody] TaskViewModel taskViewModel)
         {
             if (taskViewModel.Name == "string" || taskViewModel.Name == "")
                 return new BadRequestResult();
@@ -98,7 +99,7 @@ namespace AnyDo.Controllers
             {
                 Name = taskViewModel.Name,
                 Notes = taskViewModel.Notes,
-                EndDate = taskViewModel.EndDate, 
+                EndDate = taskViewModel.EndDate.ToDate(), 
                 CreatedDate = DateTime.Now,
                 IsCompleted = false,
                 ListModelId = taskViewModel.ListModelId == 0 ? 1 : taskViewModel.ListModelId
@@ -130,5 +131,7 @@ namespace AnyDo.Controllers
             _taskService.DeleteTaskById(taskId);
             return new OkResult();
         }
+
+
     }
 }

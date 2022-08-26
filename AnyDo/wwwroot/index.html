@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Site</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <div class="modal" id="add-task-modal">
+            <div class="modal-window add-task-modal">
+                <div class="modal-window-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <input type="text" class="input-add-task" placeholder="I want to..." id="new-task-name">
+                            <label>TIME</label>
+                            <input type="datetime-local" class="date-task" placeholder="Select Date" id="new-task-date">
+                            <label>NOTES</label>
+                            <textarea cols="7" placeholder="Insert your notes here" id="new-task-notes"></textarea>
+                        </div>
+                        <div class="col-3">
+                            <label>List</label>
+                            <div class="selected-list-name" id="selected-list-name">Personal</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-window-footer">
+                    <button class="close-button" id="close-modal-button">Add task</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="list-modal">
+            <div class="modal-window list-modal" id="list__modal">
+                <div class="modal-window-header">Choose list</div>
+                <!-- <div class="list-name" onclick="changeListName('Personal')">Personal</div>
+                <div class="list-name" onclick="changeListName('Home')">Home</div> -->
+            </div>
+        </div>
+
+        <div class="modal" id="edit-list-modal">
+            <div class="modal-window edit-list-modal">
+                <div class="modal-window-header">EDIT LIST</div>
+                <div class="modal-window-body"  id="edit-list-modal__list-item">
+                    <!-- <div class="list-item">
+                        <input type="text" value="Personal">
+                        <div class="edit-delete-buttons">
+                            <button class="edit-list-button">Edit</button>
+                            <button class="delete-list-button">Delete</button>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <input type="text" value="Personal">
+                        <div class="edit-delete-buttons">
+                            <button class="edit-list-button">Edit</button>
+                            <button class="delete-list-button">Delete</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="add-list-modal">
+            <div class="modal-window add-list-modal">
+                <div class="modal-window-body">
+                    <label>NAME LIST</label>
+                    <form>
+                        <input type="text" id="new-list-name">
+                    </form>
+                </div>
+                <div class="modal-window-footer">
+                    <button onclick="addList()">CREATE</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="edit-tags-modal">
+            <div class="modal-window edit-tags-modal">
+                <div class="modal-window-header">
+                    EDIT TAGS
+                </div>
+                <div class="modal-window-body">
+                    <div class="tags-item">
+                        <input type="text" value="Priority" class="tag-name">
+
+                        <div class="edit-delete-buttons">
+                            <button class="edit-tag-button">Edit</button>
+                            <button class="delete-tag-button">Delete</button>
+                        </div>
+                    </div>
+                    <div class="tags-item">
+                        <input type="text" value="Priority" class="tag-name">
+                    
+                        <div class="edit-delete-buttons">
+                            <button class="edit-tag-button">Edit</button>
+                            <button class="delete-tag-button">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="add-tag-modal">
+            <div class="modal-window add-tag-modal">
+                <div class="modal-window-body">
+                    <label>NAME TAG</label>
+                    <form action="">
+                        <input type="text" id="new-tag-modal">
+                    </form>
+                </div>
+                <div class="modal-window-footer">
+                    <button>SAVE</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                <div class="sidebar">
+                    <div class="logo-details">
+                        <span class="logo-name">Any.do</span>
+                    </div>
+                    <div class="create-button">
+                        <button class="button" id="open-modal-button">CREATE A TASK</button>
+                    </div>
+
+                    <ul class="nav-links">
+                        <li>
+                            <a href="#">
+                                <i class='bx bxs-calendar'></i>
+                                <span class="link-name">Calendar</span>
+                            </a>
+                            <ul class="sub-menu blank">
+                                <li><a class="link-name" href="#">Shortcuts</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="icon-link">
+                                <a href="#">
+                                    <i class='bx bxs-sun'></i>
+                                    <span class="link-name">Shortcuts</span>
+                                </a>
+                                <i class="bx bxs-chevron-down arrow"></i>
+                            </div>
+                            <ul class="sub-menu">
+                                <li><a class="link-name" href="#">Shortcuts</a></li>
+                                <li><a href="#" id="today-list" onclick="changeMainListName('Today')">Today</a></li>
+                                <li><a href="#" id="next-7-days-list" onclick="changeMainListName('Next 7 days')">Next 7 days</a></li>
+                                <li><a href="#" id="all-tasks-list" onclick="changeMainListName('All tasks')">All tasks</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="icon-link">
+                                <a href="#">
+                                    <i class='bx bx-list-ul'></i>
+                                    <span class="link-name">Lists</span>
+                                </a>
+                                <i class="bx bxs-chevron-down arrow"></i>
+                                <div class="sub-icons">
+                                    <i class='bx bxs-pencil' id="edit-list-button"></i>
+                                    <i class='bx bx-plus' id="add-list-button"></i>
+                                </div>
+                            </div>
+                            <ul class="sub-menu" id="sub-menu-list">
+                                <li><a class="link-name" href="#">Lists</a></li>
+                                <!-- <li><a href="#">Personal</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Home</a></li> -->
+                            </ul>
+                        </li>
+                        <li style="visibility: hidden;">
+                            <div class="icon-link">
+                                <a href="#">
+                                    <i class='bx bx-tag'></i>
+                                    <span class="link-name">Tags</span>
+                                </a>
+                                <i class="bx bxs-chevron-down arrow"></i>
+                                <div class="sub-icons">
+                                    <i class='bx bxs-pencil' id="edit-tags-button"></i>
+                                    <i class='bx bx-plus' id="add-tag-button"></i>
+                                </div>
+                            </div>
+                            <ul class="sub-menu">
+                                <li><a class="link-name" href="#">Tags</a></li>
+                                <li><a href="#">#priority</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-10">
+                <div class="content">
+                    <div class="header">
+                        <div class="header-text">
+                            <label id="main-name-list">My Day</label>
+                        </div>
+                        <!-- <div class="header-icons">
+                            <i class='bx bx-message-square'></i>
+                            <i class='bx bx-dots-vertical'></i>
+                        </div> -->
+                    </div>
+
+                    <div class="cards">
+                        <div class="card task-list" id="task-list-card">
+                            <div class="card-body" id="task-list">
+                                <!-- <div class="task-list-item">
+                                    <input type="hidden">
+                                    <input type="checkbox">
+                                    <div class="task-name">
+                                        Learn ASP.NET
+                                    </div>
+                                </div>
+                                <div class="task-list-item">
+                                    <input type="hidden">
+                                    <input type="checkbox">
+                                    <div class="task-name">
+                                        Find a job
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="card-footer">
+                                <input type="text" placeholder="Click to quickly add a task">
+                                <button>
+                                    <i class='bx bx-up-arrow-alt'></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card task-details">
+                            <div class="card-header">
+                                <label>TASK DETAILS</label>
+                                <button>Mark as done</button>
+                            </div>
+                            <div class="card-body" id="task-details-selected-task">
+                                <input type="hidden" id="task-id">
+                                <input type="text" id="task-name" onblur="updateTask()">
+                                <label>DATE</label>
+                                <label id="selected-task-date"></label>
+                                
+                                <label>LIST</label>
+                                <div class="selected-list-name" id="task-list-button"></div>
+                                <label>NOTES</label>
+                                <textarea cols="7" placeholder="Insert your notes here" id="task-notes" onblur="updateTask()">
+                                </textarea>
+                                <label>CREATED</label>
+                                <label id="task-created-date">22.08.2022</label>
+                                <button onclick="deleteSelectedTask()">DELETE TASK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.js" asp-append-version="true"></script>
+    <script src="/js/site.js" asp-append-version="true" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script> -->
+    <!-- <script src="https://npmcdn.com/flatpickr/dist/l10n/ru.js"></script> -->
+    <script type="text/javascript">
+
+        flatpickr("input[type=datetime-local]", {
+            locale: {
+                firstDayOfWeek: 1,
+            },
+            dateFormat: "d.m.Y",
+        });
+        
+        getLists();
+        getTasks();
+
+    </script>
+</body>
+
+</html>
