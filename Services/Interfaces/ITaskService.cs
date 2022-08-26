@@ -8,5 +8,6 @@ namespace Services.Interfaces
         void AddTask(TaskDomain task);
         void UpdateTask(TaskDomain task);
         void DeleteTaskById(int taskId);
+        void UpdateTaskStatus(int taskId, bool isCompleted);
     }
 }

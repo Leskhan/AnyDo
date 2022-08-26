@@ -33,5 +33,10 @@ namespace Services.Implementations
         {
             _taskRepository.UpdateTask(task.ToEntity());
         }
+
+        public void UpdateTaskStatus(int taskId, bool isCompleted)
+        {
+            _taskRepository.UpdateTaskStatus(taskId, isCompleted);
+        }
     }
 }

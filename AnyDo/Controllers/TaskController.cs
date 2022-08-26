@@ -114,7 +114,7 @@ namespace AnyDo.Controllers
         /// <summary>
         /// Deletes Deletes a task by id
         /// </summary>
-        /// <param name="taskId"></param>
+        /// <param name="taskId">Task id</param>
         /// <returns></returns>
         [HttpDelete("{taskId}")]
         public IActionResult DeleteTaskById(int taskId)
@@ -132,6 +132,17 @@ namespace AnyDo.Controllers
             return new OkResult();
         }
 
-
+        /// <summary>
+        /// Changes the status of a task
+        /// </summary>
+        /// <param name="taskId">The ID of the task we want to change</param>
+        /// <param name="isCompleted">New value</param>
+        /// <returns></returns>
+        [HttpPut("[action]/{taskId}/{isCompleted}")]
+        public IActionResult UpdateTaskStatus(int taskId, bool isCompleted)
+        {
+            _taskService.UpdateTaskStatus(taskId, isCompleted);
+            return new OkResult();
+        }
     }
 }

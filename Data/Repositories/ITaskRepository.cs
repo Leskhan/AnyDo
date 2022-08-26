@@ -8,5 +8,6 @@ namespace Data.Repositories
         void AddTask(TaskEntity task);
         void UpdateTask(TaskEntity task);
         void DeleteTaskById(int id);
+        void UpdateTaskStatus(int taskId, bool isCompleted);
     }
 }

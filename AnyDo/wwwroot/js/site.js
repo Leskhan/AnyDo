@@ -101,6 +101,7 @@ function _displayTasks(task) {
 
     var inputTaskIsCompleted = document.createElement("input");
     inputTaskIsCompleted.setAttribute("type", "checkbox");
+    inputTaskIsCompleted.setAttribute("onclick", `updateTaskStatus('input', '${task.id}', ${task.isCompleted})`);
     inputTaskIsCompleted.checked = task.isCompleted;
 
     var taskName = document.createElement("div");
@@ -264,6 +265,7 @@ function showSelectedTask(id) {
         taskNotes.innerText = selectedTask.notes;
     }
 
+
     var taskCreatedDate = document.getElementById("task-created-date");
     taskCreatedDate.innerText = selectedTask.createdDate.toDateString();
     console.log(typeof selectedTask.createdDate);
@@ -352,6 +354,52 @@ function updateTask() {
     })
         .then(() => location.reload());
 
+}
+
+// UPDATES TASK STATUS
+function updateTaskStatus(target, id, isCompleted) {
+    console.log(target, id, isCompleted);
+
+    if (target == 'button') {
+        if (selectedTask != null) {
+            var taskId = document.getElementById("task-id");
+            if (selectedTask.isCompleted == false) {
+                _updateTaskStatus(taskId.value, true);
+                // fetch(`${taskUri}/UpdateTaskStatus/${taskId.value}/${true}`, {
+                //     method: 'PUT',
+                //     headers: {
+                //         'Accept': 'application/json',
+                //         'Content-Type': 'application/json',
+                //     }
+                // })
+                //     .then(() => location.reload());
+            }
+
+            console.log(taskId.value, selectedTask.isCompleted);
+        }
+    }
+    else {
+        var _isCompleted;
+        if (isCompleted == true) {
+            _isCompleted = false;
+        }
+        else {
+            _isCompleted = true;
+        }
+
+        _updateTaskStatus(id, _isCompleted);
+    }
+}
+
+function _updateTaskStatus(id, isCompleted) {
+    fetch(`${taskUri}/UpdateTaskStatus/${id}/${isCompleted}`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(() => location.reload());
 }
 
 editListBtn.onclick = function () {

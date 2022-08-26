@@ -81,5 +81,18 @@ namespace Data
                 await db.ExecuteAsync(sql, task);
             }
         }
+
+        public async void UpdateTaskStatus(int taskId, bool isCompleted)
+        {
+            string status = isCompleted == true ? "True" : "False";
+            string sql = $@"UPDATE tasks
+                            SET is_completed = '{status}'
+                            WHERE id = {taskId}";
+
+            using (IDbConnection db = new SqliteConnection(_stringConnection))
+            {
+                await db.ExecuteAsync(sql);
+            }
+        }
     }
 }

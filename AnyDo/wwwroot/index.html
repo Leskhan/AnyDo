@@ -239,7 +239,7 @@
                         <div class="card task-details">
                             <div class="card-header">
                                 <label>TASK DETAILS</label>
-                                <button>Mark as done</button>
+                                <button onclick="updateTaskStatus('button', 0, false)">Mark as done</button>
                             </div>
                             <div class="card-body" id="task-details-selected-task">
                                 <input type="hidden" id="task-id">
@@ -253,7 +253,7 @@
                                 <textarea cols="7" placeholder="Insert your notes here" id="task-notes" onblur="updateTask()">
                                 </textarea>
                                 <label>CREATED</label>
-                                <label id="task-created-date">22.08.2022</label>
+                                <label id="task-created-date"></label>
                                 <button onclick="deleteSelectedTask()">DELETE TASK</button>
                             </div>
                         </div>
