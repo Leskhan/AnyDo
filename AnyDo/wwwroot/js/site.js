@@ -22,7 +22,7 @@ var taskList = [];
 var nameList = [];
 
 function getTasks() {
-    fetch(taskUri, {
+    fetch(`${taskUri}/AllTasks`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -121,6 +121,7 @@ function _displayList(list) {
     var li = document.createElement("li");
     li.setAttribute("class", "name__list");
     var a = document.createElement("a");
+    a.setAttribute("onclick", `changeMainListName('${list.name}')`);
     a.innerHTML = list.name;
 
     li.appendChild(a);
@@ -253,24 +254,32 @@ function showSelectedTask(id) {
 
 
     var taskDate = document.getElementById("selected-task-date");
-    if (selectedTask.endDate == null) {
-        taskDate.innerText = "No";
+    if (selectedTask.endDate == null || selectedTask.endDate == "") {
+        taskDate.innerHTML = "No";
     }
     else {
-        taskDate.innerText = selectedTask.endDate.toDateString();
+        taskDate.innerHTML = toDate(selectedTask.endDate);
     }
 
     var taskNotes = document.getElementById("task-notes");
     if (selectedTask.notes != null || selectedTask.notes != "") {
-        taskNotes.innerText = selectedTask.notes;
+        taskNotes.value = selectedTask.notes;
     }
 
 
     var taskCreatedDate = document.getElementById("task-created-date");
-    taskCreatedDate.innerText = selectedTask.createdDate.toDateString();
-    console.log(typeof selectedTask.createdDate);
+    taskCreatedDate.innerText = toDate(selectedTask.createdDate);
 }
 
+function toDate(date) {
+    var dateArray = date.split('-');
+    var year = dateArray[0];
+    var month = dateArray[1];
+    var day = dateArray[2];
+    var daySplit = day.split('T');
+
+    return `${daySplit[0]}.${month}.${year}`;
+}
 
 /* MODAL WINDOW */
 
@@ -304,7 +313,6 @@ openModalBtn.onclick = function () {
 closeModalBtn.onclick = function () {
     addTaskModal.style.visibility = "hidden";
 
-    const currentDate = new Date();
     var list = document.getElementById("selected-list-name").innerText;
 
     const newTask = {
@@ -314,17 +322,54 @@ closeModalBtn.onclick = function () {
         listModelId: nameList.find(l => l.name === list).id,
     };
 
-    fetch(taskUri, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newTask)
-    })
-        .then(() => location.reload());
+    if (newTask.name == "") {
+        alert("Set the name of the task");
+    }
+    else {
+        fetch(taskUri, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newTask)
+        })
+            .then(() => location.reload());
+    
+            //console.log(newTask);
+    }
+}
 
-        console.log(newTask);
+function addTaskQuickly() {
+    var taskName = document.getElementById("task_name_quickly");
+
+    var AselectedList = nameList.find(l => l.name === _selectedList);
+
+    var newTask = {
+        name: taskName.value,
+        endDate: null,
+        notes: null,
+        listModelId: AselectedList.id
+    }
+
+    if (newTask.name == "") {
+        alert("Set the name of the task");
+    }
+    else {
+        fetch(taskUri, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newTask)
+        })
+            .then(() => location.reload());
+
+        //console.log(newTask);
+    }
+
+    console.log(newTask);
 }
 
 // UPDATES TASK
@@ -365,14 +410,6 @@ function updateTaskStatus(target, id, isCompleted) {
             var taskId = document.getElementById("task-id");
             if (selectedTask.isCompleted == false) {
                 _updateTaskStatus(taskId.value, true);
-                // fetch(`${taskUri}/UpdateTaskStatus/${taskId.value}/${true}`, {
-                //     method: 'PUT',
-                //     headers: {
-                //         'Accept': 'application/json',
-                //         'Content-Type': 'application/json',
-                //     }
-                // })
-                //     .then(() => location.reload());
             }
 
             console.log(taskId.value, selectedTask.isCompleted);
@@ -464,8 +501,85 @@ function changeListName(e) {
 // LISTS
 
 var mainListName = document.getElementById("main-name-list");
+var _selectedList = 'Personal'; 
 
 function changeMainListName(listName) {
-    //console.log(mainListName);
+    if (listName == 'Today' || listName == 'Next 7 days' || listName == 'All tasks') {
+        _selectedList = 'Personal';
+
+        if (listName == 'Next 7 days') {
+            listName = 'Next7Days';
+        }
+
+        if (listName == 'All tasks') {
+            listName = 'AllTasks';
+        }
+        mainListName.innerText = listName;
+        
+        $('.task-list div').empty();
+        fetch(`${taskUri}/${listName}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(resp => resp.json())
+            .then(data => {
+
+                console.log(data);
+
+                for (let i = 0; i < data.length; i++) {
+                    _displayTasks(data[i]);
+                }
+            });
+    }
+    else {
+        _selectedList = listName;
+
+        $('.task-list div').empty();
+        fetch(`${taskUri}/ListTasks/${_selectedList}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(resp => resp.json())
+            .then(data => {
+
+                console.log(data);
+
+                for (let i = 0; i < data.length; i++) {
+                    _displayTasks(data[i]);
+                }
+            });
+    }
+    
     mainListName.innerText = listName;
 }
+
+function getListWithTasks(listName) {
+
+    $('.task-list div').empty();
+
+    console.log(listName);
+    fetch(`${taskUri}/${listName}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(resp => resp.json())
+        .then(data => {
+            
+            console.log(data);
+
+            for (let i = 0; i < data.length; i++) {
+                _displayTasks(data[i]);
+            }
+        });
+    
+}
+

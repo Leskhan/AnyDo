@@ -21,13 +21,40 @@ namespace AnyDo.Controllers
         }
 
         /// <summary>
-        /// Returns all tasks from databases
+        /// Returns all tasks
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public List<TaskModel> GetAllTasks() 
+        [HttpGet("AllTasks")]
+        public List<TaskModel> AllTasks()
         {
             return _tasks;
+        }
+
+        /// <summary>
+        /// Returns tasks whose due date is today
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Today")]
+        public List<TaskModel> Today()
+        {
+            return _tasks.Where(task => task.EndDate == null || task.EndDate == DateTime.Today).ToList();
+        }
+
+        /// <summary>
+        /// Returns tasks whose due date is less than 7 days
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Next7Days")]
+        public List<TaskModel> Next7Days()
+        {
+            return _tasks.Where(task => task.EndDate < DateTime.Today.AddDays(7) || task.EndDate == null).ToList();
+        }
+
+
+        [HttpGet("ListTasks/{listName}")]
+        public List<TaskModel> ListTasks(string listName)
+        {
+            return _tasks.Where(task => task.List.Name == listName).ToList();
         }
 
         /// <summary>
