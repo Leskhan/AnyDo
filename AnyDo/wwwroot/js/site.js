@@ -101,6 +101,7 @@ function _displayTasks(task) {
 
     var inputTaskIsCompleted = document.createElement("input");
     inputTaskIsCompleted.setAttribute("type", "checkbox");
+    inputTaskIsCompleted.setAttribute("id", "task__is-completed");
     inputTaskIsCompleted.setAttribute("onclick", `updateTaskStatus('input', '${task.id}', ${task.isCompleted})`);
     inputTaskIsCompleted.checked = task.isCompleted;
 
@@ -378,9 +379,10 @@ function updateTask() {
     var taskName = document.getElementById("task-name");
     var listName = document.getElementById("task-list-button");
     var taskNotes = document.getElementById("task-notes");
+    var isCompleted = document.getElementById("task__is-completed");
 
     var listId = nameList.find(l => l.name == listName.innerText);
-    console.log(listId);
+    //console.log(isCompleted);
 
     var task = {
         id: taskId.value,
@@ -504,8 +506,12 @@ var mainListName = document.getElementById("main-name-list");
 var _selectedList = 'Personal'; 
 
 function changeMainListName(listName) {
+
+    //console.log(listName);
+
     if (listName == 'Today' || listName == 'Next 7 days' || listName == 'All tasks') {
         _selectedList = 'Personal';
+        mainListName.innerText = listName;
 
         if (listName == 'Next 7 days') {
             listName = 'Next7Days';
@@ -514,7 +520,7 @@ function changeMainListName(listName) {
         if (listName == 'All tasks') {
             listName = 'AllTasks';
         }
-        mainListName.innerText = listName;
+        
         
         $('.task-list div').empty();
         fetch(`${taskUri}/${listName}`, {
@@ -527,7 +533,7 @@ function changeMainListName(listName) {
             .then(resp => resp.json())
             .then(data => {
 
-                console.log(data);
+                //console.log(data);
 
                 for (let i = 0; i < data.length; i++) {
                     _displayTasks(data[i]);
@@ -548,16 +554,18 @@ function changeMainListName(listName) {
             .then(resp => resp.json())
             .then(data => {
 
-                console.log(data);
+                //console.log(data);
 
                 for (let i = 0; i < data.length; i++) {
                     _displayTasks(data[i]);
                 }
             });
+        
+        mainListName.innerText = listName;
     }
     
-    mainListName.innerText = listName;
 }
+
 
 function getListWithTasks(listName) {
 

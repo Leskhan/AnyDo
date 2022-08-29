@@ -247,6 +247,7 @@
     margin-left: 50px;
     border-radius: 10px;
     position: relative;
+    overflow: auto;
 }
 
 .content .cards .card .card-footer {

@@ -104,7 +104,7 @@ namespace AnyDo.Controllers
             existingTask.Notes = taskVM.Notes;
             existingTask.EndDate = taskVM.EndDate;
             existingTask.CreatedDate = existingTask.CreatedDate;
-            existingTask.IsCompleted = taskVM.IsCompleted;
+            existingTask.IsCompleted = existingTask.IsCompleted;
             existingTask.ListModelId = taskVM.ListModelId;
 
             _taskService.UpdateTask(existingTask.ToDomain());
@@ -168,8 +168,15 @@ namespace AnyDo.Controllers
         [HttpPut("[action]/{taskId}/{isCompleted}")]
         public IActionResult UpdateTaskStatus(int taskId, bool isCompleted)
         {
-            _taskService.UpdateTaskStatus(taskId, isCompleted);
-            return new OkResult();
+            var existingTask = _tasks.FirstOrDefault(task => task.Id == taskId);
+            if (existingTask is not null)
+            {
+                existingTask.IsCompleted = isCompleted;
+                _taskService.UpdateTaskStatus(taskId, isCompleted);
+                return new OkResult();
+            }
+
+            return new BadRequestResult();
         }
     }
 }

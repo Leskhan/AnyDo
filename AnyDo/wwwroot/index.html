@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="modal-window-footer">
                     <button class="close-button" id="close-modal-button">Add task</button>
                 </div>
@@ -51,7 +51,7 @@
         <div class="modal" id="edit-list-modal">
             <div class="modal-window edit-list-modal">
                 <div class="modal-window-header">EDIT LIST</div>
-                <div class="modal-window-body"  id="edit-list-modal__list-item">
+                <div class="modal-window-body" id="edit-list-modal__list-item">
                     <!-- <div class="list-item">
                         <input type="text" value="Personal">
                         <div class="edit-delete-buttons">
@@ -100,7 +100,7 @@
                     </div>
                     <div class="tags-item">
                         <input type="text" value="Priority" class="tag-name">
-                    
+
                         <div class="edit-delete-buttons">
                             <button class="edit-tag-button">Edit</button>
                             <button class="delete-tag-button">Delete</button>
@@ -135,7 +135,7 @@
                     </div>
 
                     <ul class="nav-links">
-                        <li>
+                        <!-- <li>
                             <a href="#">
                                 <i class='bx bxs-calendar'></i>
                                 <span class="link-name">Calendar</span>
@@ -143,7 +143,7 @@
                             <ul class="sub-menu blank">
                                 <li><a class="link-name" href="#">Shortcuts</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li>
                             <div class="icon-link">
                                 <a href="#">
@@ -155,8 +155,10 @@
                             <ul class="sub-menu">
                                 <li><a class="link-name" href="#">Shortcuts</a></li>
                                 <li><a href="#" id="today-list" onclick="changeMainListName('Today')">Today</a></li>
-                                <li><a href="#" id="next-7-days-list" onclick="changeMainListName('Next 7 days')">Next 7 days</a></li>
-                                <li><a href="#" id="all-tasks-list" onclick="changeMainListName('All tasks')">All tasks</a></li>
+                                <li><a href="#" id="next-7-days-list" onclick="changeMainListName('Next 7 days')">Next 7
+                                        days</a></li>
+                                <li><a href="#" id="all-tasks-list" onclick="changeMainListName('All tasks')">All
+                                        tasks</a></li>
                             </ul>
                         </li>
                         <li>
@@ -229,12 +231,12 @@
                                     </div>
                                 </div> -->
                             </div>
-                            <div class="card-footer">
+                            <!-- <div class="card-footer">
                                 <input type="text" placeholder="Click to quickly add a task" id="task_name_quickly">
                                 <button onclick="addTaskQuickly()">
                                     <i class='bx bx-up-arrow-alt'></i>
                                 </button>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="card task-details">
                             <div class="card-header">
@@ -246,11 +248,12 @@
                                 <input type="text" id="task-name" onblur="updateTask()">
                                 <label>DATE</label>
                                 <label id="selected-task-date"></label>
-                                
+
                                 <label>LIST</label>
                                 <div class="selected-list-name" id="task-list-button"></div>
                                 <label>NOTES</label>
-                                <textarea cols="7" placeholder="Insert your notes here" id="task-notes" onblur="updateTask()">
+                                <textarea cols="7" placeholder="Insert your notes here" id="task-notes"
+                                    onblur="updateTask()">
                                 </textarea>
                                 <label>CREATED</label>
                                 <label id="task-created-date"></label>
@@ -264,8 +267,8 @@
     </div>
 
     <script src="/js/bootstrap.js" asp-append-version="true"></script>
-    <script src="/js/site.js" asp-append-version="true" ></script>
-    <script src="/js/jquery.js" asp-append-version="true" ></script>
+    <script src="/js/site.js" asp-append-version="true"></script>
+    <script src="/js/jquery.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!-- <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script> -->
     <!-- <script src="https://npmcdn.com/flatpickr/dist/l10n/ru.js"></script> -->
@@ -277,7 +280,7 @@
             },
             dateFormat: "d.m.Y",
         });
-        
+
         getLists();
         getTasks();
 
