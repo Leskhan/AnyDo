@@ -4,8 +4,8 @@ using Services.Implementations;
 using Services.Interfaces;
 using System.Reflection;
 
-File.Delete(@"C:\Users\user\source\repos\AnyDo\AnyDo\wwwroot\js\site.js");
-File.Copy(@"C:\Users\user\Documents\Site2\js\site.js", @"C:\Users\user\source\repos\AnyDo\AnyDo\wwwroot\js\site.js", true);
+//File.Delete(@"C:\Users\user\source\repos\AnyDo\AnyDo\wwwroot\js\site.js");
+//File.Copy(@"C:\Users\user\Documents\Site2\js\site.js", @"C:\Users\user\source\repos\AnyDo\AnyDo\wwwroot\js\site.js", true);
 
 
 var pathDirectory = Environment.CurrentDirectory;
