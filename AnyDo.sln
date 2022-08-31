@@ -14,13 +14,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBTest", "DBTest\DBTest.csproj", "{AF590BE9-CDAE-4C4A-BBD2-12389B102952}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{6306D60D-B951-45AD-BA6F-BC7431CEBDE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{6306D60D-B951-45AD-BA6F-BC7431CEBDE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{AB53599B-3496-4181-BA0F-AF4FE41B08EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{AB53599B-3496-4181-BA0F-AF4FE41B08EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnyDo", "AnyDo\AnyDo.csproj", "{520102B5-6589-4AD2-9132-FFDB2870E222}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnyDo", "AnyDo\AnyDo.csproj", "{520102B5-6589-4AD2-9132-FFDB2870E222}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mappers", "Mappers\Mappers.csproj", "{4B615DC7-76CF-40AC-AE08-514229D2D7BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mappers", "Mappers\Mappers.csproj", "{4B615DC7-76CF-40AC-AE08-514229D2D7BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{8846AC5D-6DB9-46C7-A615-356EDC578B8E}"
+	ProjectSection(SolutionItems) = preProject
+		index.html = index.html
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
